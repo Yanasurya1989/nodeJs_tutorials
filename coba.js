@@ -1,1 +1,0 @@
-console.log('hallo werod dari file berbeda')
