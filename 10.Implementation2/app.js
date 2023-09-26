@@ -42,6 +42,49 @@ yargs.command({
         contacts.simpanContact(argv.nama, argv.email, argv.noHP)
     }
 })
+.demandCommand()
+
+// menampilkan daftar semua nama & noHp kontak 
+yargs.command({
+    command: 'list',
+    describe: 'Menampilkan semua nama dan no hp pada contact',
+    handler(){
+        contacts.listContact()
+    }
+})
+
+// menampilkan detil contact
+yargs.command({
+    command: 'detail',
+    describe: 'Menampilkan detail sebuah contact berdasarkan nama',
+    builder:{
+        nama: {
+            describe: 'Nama lengkap',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler(argv){
+        contacts.detailContact(argv.nama)
+    }
+})
+
+// menghapus contact berdasarkan nama
+yargs.command({
+    command: 'delete',
+    describe: 'Menghapus contact berdasarkan nama',
+    builder:{
+        nama: {
+            describe: 'Nama lengkap',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler(argv){
+        contacts.deleteContact(argv.nama)
+    }
+})
+
 yargs.parse()
 
 // console.log(yargs.argv)
