@@ -1,11 +1,18 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
+const {loadContact, findContact} = require('./utils/contacts')
+
 const app = express()
 const port = 3000
 
 // gunakan ejs
 app.set('view engine', 'ejs')
+
+// Third-party Middleware
 app.use(expressLayouts)
+
+// Build-in middleware
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     const mahasiswa = [
@@ -39,15 +46,26 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/contact', (req, res) => {
+    const contacts = loadContact()
+
+    // console.log(contacts)
     res.render('contact', {
+        titile: 'contact nya',
         layout: 'layouts/main-layout',
-        titile: 'contact nya'
+        // contacts: contacts, //sinfkat code ini dengan code dibawah
+        contacts,
     })
 })
 
+app.get('/contact/:nama', (req, res) => {
+    const contact = findContact(req.params.nama)
 
-app.get('/product/:id/category/:idCat', (req, res) => {
-    res.send(`Product IDna teh : ${req.params.id} <br> Category IDna : ${req.query.idCat}`)
+    res.render('detil', {
+        titile: 'Halaman Detail Contact',
+        layout: 'layouts/main-layout',
+        // contacts: contacts, //sinfkat code ini dengan code dibawah
+        contact,
+    })
 })
 
 app.use('/tes', (req, res) => {
