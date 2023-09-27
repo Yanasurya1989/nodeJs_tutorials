@@ -1,0 +1,12 @@
+
+    <h1>Web server express JS</h1>
+    <h3>halo mang <%= nama %></h3>
+    <h4>Daftar Mahasiswa : </h4>
+    <% if (mahasiswa.length < 1) { %>
+     <p>Data masih kosong</p>
+    <% } else { %><% mahasiswa.forEach(mhs => { %>
+        <ul>
+            <li>Nama : <%= mhs.nama %></li>
+            <li>Email : <%= mhs.emial %></li>
+        </ul>
+    <% }) %><% } %>
